@@ -19,7 +19,19 @@ class SubscriberController < ApplicationController
   end
 
   def confirm
+    if @subscriber && @referrer
+      @subscriber.update (
+        referrer_id: @referrer.id
+      )
 
+      if get_referral_count(@referrer.id) == 5
+        #send reward notification
+      end
+
+      render json: @subscriber, status: :created, location: @subscriber, :only => ['email', 'user_key', 'share_key']
+    else
+      render json: { message: 'bad user key or share key.'}, status: :unprocessable_entity
+    end
   end
 
   def update
