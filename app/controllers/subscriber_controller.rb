@@ -35,7 +35,17 @@ class SubscriberController < ApplicationController
   end
 
   def update
+    if !@subscriber
+      create
+    elsif @subscriber.update(subscriber_params)
+      if get_referral_count(@subscriber.id) >= 5 && has_complete_address?
+        #Sent to fulfillment service
+      end
 
+      render json: @subscriber, status: :created, location: @subscriber, :only=> ['email', 'user_key', 'share_key']
+    else
+      render json: @subscriber.errors, status: :unprocessable_entity
+    end
   end
 
   private
