@@ -73,4 +73,12 @@ class SubscriberController < ApplicationController
         :referrer_key
       )
   end
+
+  def get_referral_count(id)
+    Subscriber.where(referrer_id: id).count
+  end
+
+  def has_complete_address?
+    @subscriber.street_address_one != nil && @subscriber.city != nil && @subscriber.state != nil && @subscriber.zip != nil
+  end
 end
