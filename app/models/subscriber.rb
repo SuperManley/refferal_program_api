@@ -13,6 +13,25 @@ class Subscriber < ApplicationRecord
     subscriber.sent_to_airtable = false
   end
 
+  after_save do |subscriber|
+    unless Rails.env.test?
+      begin
+        gibbon = Gibbon::Request.new
+
+      gibbon.lists(ENV['MAILCHIMP_LIST_ID']).members(Digest::MD5.hexdigest(subscriber.email))
+            .update(body: {
+              merge_fields: {
+                SHAREKEY: subscriber.share_key,
+                USERKEY: subscriber.user_key
+              }
+            })
+            rescue Gibbon::MailChimpError => e
+              # Add error alert
+            puts "Houston, we have a problem: #{e.raw_body}"
+      end
+    end
+  end
+
   private
 
   def generate_unique_key(field_name)
