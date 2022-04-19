@@ -42,3 +42,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "figaro"
 
 gem "gibbon", '~>2.2.4'
+
+gem 'mandrill-api'

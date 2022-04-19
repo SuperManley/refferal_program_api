@@ -1,3 +1,8 @@
 MAILCHIMP_API_KEY: '1dfefa868eb25451229d7f25be5714f0-us14'
 MAILCHIMP_LIST_ID: '37718fab40'
 MAILCHIMP_ENV: 'development'
+
+SMTP_ADDRESS: 'smtp.mandrillapp.com'
+SMTP_DOMAIN: 'localhost'
+SMTP_PASSWORD: #add password after Mandrill setup in MialChimp
+SMTP_USERNAME: #add username after Mandrill setup in MialChimp
